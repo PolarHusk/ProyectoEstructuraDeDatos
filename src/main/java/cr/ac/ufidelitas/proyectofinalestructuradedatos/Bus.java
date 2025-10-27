@@ -4,13 +4,13 @@ package cr.ac.ufidelitas.proyectofinalestructuradedatos;
 
 public abstract class Bus {
     private String numeroBus;
-    private String ruta;
+    private String terminal;
     private int numeroParadas;
     private TipoBus tipo;
 
-    public Bus(String numeroBus, String ruta, int numeroParadas, TipoBus tipo) {
+    public Bus(String numeroBus, String terminal, int numeroParadas, TipoBus tipo) {
         this.numeroBus = numeroBus;
-        this.ruta = ruta;
+        this.terminal = terminal;
         this.numeroParadas = numeroParadas;
         this.tipo = tipo;
     }
@@ -23,12 +23,12 @@ public abstract class Bus {
         this.numeroBus = numeroBus;
     }
 
-    public String getRuta() {
-        return ruta;
+    public String getTerminal() {
+        return terminal;
     }
 
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
+    public void setTerminal(String terminal) {
+        this.terminal = terminal;
     }
 
     public int getNumeroParadas() {
