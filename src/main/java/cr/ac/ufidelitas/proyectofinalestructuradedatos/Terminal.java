@@ -1,7 +1,6 @@
 package cr.ac.ufidelitas.proyectofinalestructuradedatos;
 
 import java.util.Random;
-import javax.swing.JOptionPane;
 
 public class Terminal {
 
@@ -25,7 +24,7 @@ public class Terminal {
 
         for (int i = 2; i < totalBuses; i++) {
             int paradas = 2 + random.nextInt(10);
-            nuevosBuses[i] = new BusNormal("Bus-00" + (i + 1), nombre, paradas);
+            nuevosBuses[i] = new Bus("Bus-00" + (i + 1), nombre, paradas, TipoBus.NORMAL);
         }
         return nuevosBuses;
     }

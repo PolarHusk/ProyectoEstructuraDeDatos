@@ -1,8 +1,5 @@
 package cr.ac.ufidelitas.proyectofinalestructuradedatos;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.File;
 import javax.swing.JOptionPane;
 
 public class ProyectoEstructuraDeDatos {
