@@ -2,7 +2,7 @@
 package cr.ac.ufidelitas.proyectofinalestructuradedatos;
 
 
-public abstract class Bus {
+public class Bus {
     private String numeroBus;
     private String terminal;
     private int numeroParadas;
@@ -14,6 +14,8 @@ public abstract class Bus {
         this.numeroParadas = numeroParadas;
         this.tipo = tipo;
     }
+    
+    public Bus(){}
 
     public String getNumeroBus() {
         return numeroBus;
@@ -46,9 +48,7 @@ public abstract class Bus {
     public void setTipo(TipoBus tipo) {
         this.tipo = tipo;
     }
-    
-    public abstract void mostrarBus();
-    
+        
     
     
 }

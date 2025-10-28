@@ -10,7 +10,10 @@ public class BusNormal extends Bus{
         super(numeroBus, terminal, numeroParadas, TipoBus.NORMAL);
     }
 
-    @Override
+    public BusNormal() {
+    }
+    
+
     public void mostrarBus() {
         JOptionPane.showMessageDialog(null, "Bus Normal #" + getNumeroBus() + "Terminal: " + getTerminal() + "Cantidad de Paradas: " + getNumeroParadas()
         + "Descripcion: Bus comun con varias paradas (2 o mas minimo)");
