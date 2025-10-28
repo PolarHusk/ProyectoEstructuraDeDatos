@@ -1,5 +1,5 @@
 
-package cr.ac.ufidelitas.proyectofinalestructuradedatos;
+package ModuloConfiguracion;
 
 
 public class Bus {

@@ -1,4 +1,4 @@
-package cr.ac.ufidelitas.proyectofinalestructuradedatos;
+package ModuloConfiguracion;
 
 import java.util.Random;
 
