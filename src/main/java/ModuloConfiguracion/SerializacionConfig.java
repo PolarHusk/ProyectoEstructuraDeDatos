@@ -1,4 +1,4 @@
-package cr.ac.ufidelitas.proyectofinalestructuradedatos;
+package ModuloConfiguracion;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
