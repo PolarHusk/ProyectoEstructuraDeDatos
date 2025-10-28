@@ -9,8 +9,9 @@ public class BusPreferencial extends Bus {
         super(numeroBus, terminal, numeroParadas, TipoBus.PREFERENCIAL);
     }
 
+    public BusPreferencial() {
+    }
     
-    @Override
     public void mostrarBus() { // Metodo para mostrar la descripcion del bus
         JOptionPane.showMessageDialog(null, "Bus Preferencial #" + getNumeroBus() + "Terminal: " + getTerminal() + "Cantidad de Paradas: " + getNumeroParadas()
         + "Descripcion: Atiende a personas con discapacidades, embarazo, empresariales y adultros mayores");
