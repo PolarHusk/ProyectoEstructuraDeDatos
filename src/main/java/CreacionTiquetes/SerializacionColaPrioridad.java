@@ -25,7 +25,7 @@ public class SerializacionColaPrioridad {
     }
     
     //Cargar desde el JSON
-    public ColaPrioridad desseralizarColaPrioridad(String archivo){
+    public static ColaPrioridad desseralizarColaPrioridad(String archivo){
         Gson gson = new GsonBuilder().create();
         try (FileReader reader = new FileReader(archivo)) {            
             return gson.fromJson(reader, ColaPrioridad.class);            

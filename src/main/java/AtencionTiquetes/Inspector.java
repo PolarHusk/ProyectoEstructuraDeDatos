@@ -1,4 +1,3 @@
-
 package AtencionTiquetes;
 
 import com.google.gson.Gson;
@@ -8,23 +7,69 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import CreacionTiquetes.*;
+import javax.swing.JOptionPane;
+import ModuloConfiguracion.*;
+import ConsultaBCCR.*;
+import static ConsultaBCCR.MainBCCR.tipoCambio;
+import java.math.BigDecimal;
 
 public class Inspector {
-    
-      private boolean ocupado;
+
+    private boolean ocupado;
 
     public Inspector() {
         this.ocupado = false;
     }
-    
-    public boolean isOcupado() { return ocupado; }
 
-    public void atender(Tiquete t) {
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public Tiquete atender(Tiquete t) {
         ocupado = true;
+
+        Double precioTiquete = 0.0;
+
+//        ServicioBCCR servicio = new ServicioBCCR();
+
+//        IndicadorEconomico indicador = servicio.obtenerIndicador(
+//                "318", "25/11/2025", "25/11/2025",
+//                "Sebastian Sandi Vega", "N", "sebasandi940@gmail.com", "SSS082DES5"
+//        );
+//        BigDecimal tipoCambio = tipoCambio(indicador);
+
+        if (t.getServicio().equals("VIP")) {
+            precioTiquete = 100.00 + 20.00;
+        } else if (t.getServicio().equals("Regular")) {
+            precioTiquete = 20.00;
+        } else if (t.getServicio().equals("Ejecutivo")) {
+            precioTiquete = 1000.00 + 20.00;
+        } else if (t.getServicio().equals("Carga")) {
+            int carga = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la lb de carga: "));
+            precioTiquete = 20.00 + carga * 10.00;
+        }
+
+        if (t.getMonedaCuenta().equals("Colones")) {
+           // CAMBIAR TIPODE CAMBIO A DOUBLE O INT precioTiquete = precioTiquete * tipoCambio;
+        }
+
+        int opcion = JOptionPane.showConfirmDialog(null, "Tiquete #: " + t.getId() + "paga: " + precioTiquete,
+                "Pago requerido", JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "El usuario denego el pago, volvera a la fila de prioridad");
+            ocupado = false;
+            return t;
+        }
+
         t.setHoraAbordaje(obtenerHoraActual());
+        t.setAtendido(true);
         guardarTiquete(t);
         ocupado = false;
-        System.out.println("Tiquete " + t.getId() + " atendido en bus " + t.getTipoBus());
+        System.out.println("Tiquete " + t.getId() + " atendido en bus # " + t.getNumeroBus());
+        JOptionPane.showMessageDialog(null, t.toString());
+        return null;
     }
 
     private String obtenerHoraActual() {
@@ -43,7 +88,9 @@ public class Inspector {
             }
 
             Tiquete[] nuevoArray = new Tiquete[existentes.length + 1];
-            for (int i = 0; i < existentes.length; i++) nuevoArray[i] = existentes[i];
+            for (int i = 0; i < existentes.length; i++) {
+                nuevoArray[i] = existentes[i];
+            }
             nuevoArray[existentes.length] = t;
 
             try (FileWriter writer = new FileWriter("atendidos.json")) {
@@ -55,7 +102,4 @@ public class Inspector {
         }
     }
 
-
-
-    
 }

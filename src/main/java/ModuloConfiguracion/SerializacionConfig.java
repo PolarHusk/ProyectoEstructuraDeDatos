@@ -7,9 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class SerializacionConfig {
-    
+
     private Terminal termina1;
-    private Usuario usuarios[];
 
     public SerializacionConfig() {
     }
@@ -17,8 +16,6 @@ public class SerializacionConfig {
     public SerializacionConfig(Terminal termina1) {
         this.termina1 = termina1;
     }
-    
-    
 
     public void GuardarConfig(Terminal terminal) {
 
@@ -43,9 +40,9 @@ public class SerializacionConfig {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } 
-            return null;
-    
+        }
+        return null;
+
     }
 
     public Terminal getTermina1() {
@@ -56,13 +53,5 @@ public class SerializacionConfig {
         this.termina1 = termina1;
     }
 
-    public Usuario[] getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(Usuario[] usuarios) {
-        this.usuarios = usuarios;
-    }
-    
-    
 }
+

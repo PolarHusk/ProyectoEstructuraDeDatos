@@ -1,12 +1,16 @@
 package ModuloConfiguracion;
 
+import AtencionTiquetes.ColaTiquetes;
+import AtencionTiquetes.Inspector;
 import javax.swing.JOptionPane;
 
 public class BusDirecto extends Bus {
 
-    public BusDirecto(String numeroBus, String terminal) {
-        super(numeroBus, terminal, 1, TipoBus.DIRECTO);
+    public BusDirecto(String terminal, TipoBus tipo, String id) {
+        super(terminal, 1, tipo, id);
     }
+
+
 
     public BusDirecto() {
     }

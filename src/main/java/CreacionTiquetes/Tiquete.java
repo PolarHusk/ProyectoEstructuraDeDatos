@@ -1,9 +1,10 @@
-
 package CreacionTiquetes;
 
+import ModuloConfiguracion.*;
 
 // Clase que representa la información de un tiquete de bus
 public class Tiquete {
+
     // Atributos principales del tiquete
     private String nombre;
     private int id;
@@ -12,11 +13,14 @@ public class Tiquete {
     private String horaCompra;
     private String horaAbordaje;
     private String servicio;
-    private String tipoBus;
+    private TipoBus tipoBusNuevo;
+    private boolean atendido = false;
+    private String nombreTerminal;
+    private String numeroBus;
 
     // Constructor: inicializa todos los valores del tiquete
     public Tiquete(String nombre, int id, int edad, String monedaCuenta, String horaCompra,
-                   String horaAbordaje, String servicio, String tipoBus) {
+            String horaAbordaje, String servicio, TipoBus tipoBusNuevo, String terminalNombre) {
         this.nombre = nombre;
         this.id = id;
         this.edad = edad;
@@ -24,46 +28,117 @@ public class Tiquete {
         this.horaCompra = horaCompra;
         this.horaAbordaje = horaAbordaje;
         this.servicio = servicio;
-        this.tipoBus = tipoBus;
+        this.tipoBusNuevo = tipoBusNuevo;
+        this.atendido = false;
+        this.nombreTerminal = terminalNombre;
+        this.numeroBus = null;
+    }
+
+    public String getNombreTerminal() {
+        return nombreTerminal;
+    }
+
+    public void setNombreTerminal(String nombreTerminal) {
+        this.nombreTerminal = nombreTerminal;
+    }
+
+    public String getNumeroBus() {
+        return numeroBus;
+    }
+
+    public void setNumeroBus(String numeroBus) {
+        this.numeroBus = numeroBus;
+    }
+
+    public boolean isAtendido() {
+        return atendido;
+    }
+
+    public void setAtendido(boolean atendido) {
+        this.atendido = atendido;
     }
 
     // Métodos GET y SET para acceder y modificar los atributos
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public int getEdad() { return edad; }
-    public void setEdad(int edad) { this.edad = edad; }
+    public int getId() {
+        return id;
+    }
 
-    public String getMonedaCuenta() { return monedaCuenta; }
-    public void setMonedaCuenta(String monedaCuenta) { this.monedaCuenta = monedaCuenta; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getHoraCompra() { return horaCompra; }
-    public void setHoraCompra(String horaCompra) { this.horaCompra = horaCompra; }
+    public int getEdad() {
+        return edad;
+    }
 
-    public String getHoraAbordaje() { return horaAbordaje; }
-    public void setHoraAbordaje(String horaAbordaje) { this.horaAbordaje = horaAbordaje; }
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
 
-    public String getServicio() { return servicio; }
-    public void setServicio(String servicio) { this.servicio = servicio; }
+    public String getMonedaCuenta() {
+        return monedaCuenta;
+    }
 
-    public String getTipoBus() { return tipoBus; }
-    public void setTipoBus(String tipoBus) { this.tipoBus = tipoBus; }
+    public void setMonedaCuenta(String monedaCuenta) {
+        this.monedaCuenta = monedaCuenta;
+    }
+
+    public String getHoraCompra() {
+        return horaCompra;
+    }
+
+    public void setHoraCompra(String horaCompra) {
+        this.horaCompra = horaCompra;
+    }
+
+    public String getHoraAbordaje() {
+        return horaAbordaje;
+    }
+
+    public void setHoraAbordaje(String horaAbordaje) {
+        this.horaAbordaje = horaAbordaje;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    
+    }
+        
+
+    public TipoBus getTipoBusNuevo() {
+        return tipoBusNuevo;
+    }
+
+    public void setTipoBusNuevo(TipoBus tipoBusNuevo) {
+        this.tipoBusNuevo = tipoBusNuevo;
+    }
 
     // Representación del objeto como texto (para mostrar en pantalla)
     @Override
     public String toString() {
-        return "Tiquete { " +
-                "nombre =' " + nombre + '\'' +
-                ", id = " + id +
-                ", edad = " + edad +
-                ", monedaCuenta = ' " + monedaCuenta + '\'' +
-                ", horaCompra = ' " + horaCompra + '\'' +
-                ", horaAbordaje =  ' " + horaAbordaje + '\'' +
-                ", servicio = ' " + servicio + '\'' +
-                ", tipoBus= ' " + tipoBus + '\'' +
-                '}';
+        return "Tiquete { "
+                + "nombre =' " + nombre + '\''
+                + ", id = " + id
+                + ", edad = " + edad
+                + ", monedaCuenta = ' " + monedaCuenta + '\''
+                + ", horaCompra = ' " + horaCompra + '\''
+                + ", horaAbordaje =  ' " + horaAbordaje + '\''
+                + ", servicio = ' " + servicio + '\''
+                + ", tipoBus = ' " + tipoBusNuevo + '\''
+                + '}';
     }
 }
+
+
