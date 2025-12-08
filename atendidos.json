@@ -1,0 +1,82 @@
+[
+  {
+    "nombre": "Francisco",
+    "id": 56,
+    "edad": 22,
+    "monedaCuenta": "Colones",
+    "horaCompra": "2025-12-07 18-45-01",
+    "horaAbordaje": "2025-12-07 18:48:35",
+    "servicio": "Ejecutivo",
+    "tipoBusNuevo": "DIRECTO",
+    "atendido": true
+  },
+  {
+    "nombre": "Dylan",
+    "id": 2,
+    "edad": 22,
+    "monedaCuenta": "Dolares",
+    "horaCompra": "2025-12-07 18-22-14",
+    "horaAbordaje": "2025-12-07 18:48:53",
+    "servicio": "VIP",
+    "tipoBusNuevo": "NORMAL",
+    "atendido": true
+  },
+  {
+    "nombre": "Dylan",
+    "id": 2,
+    "edad": 22,
+    "monedaCuenta": "Dolares",
+    "horaCompra": "2025-12-07 18-22-14",
+    "horaAbordaje": "2025-12-07 18:55:43",
+    "servicio": "VIP",
+    "tipoBusNuevo": "NORMAL",
+    "atendido": true
+  },
+  {
+    "nombre": "Dylan",
+    "id": 45,
+    "edad": 22,
+    "monedaCuenta": "Dolares",
+    "horaCompra": "2025-12-07 18-56-05",
+    "horaAbordaje": "2025-12-07 21:13:11",
+    "servicio": "Carga",
+    "tipoBusNuevo": "NORMAL",
+    "atendido": true,
+    "terminal": "San Jose"
+  },
+  {
+    "nombre": "Dylan",
+    "id": 34,
+    "edad": 23,
+    "monedaCuenta": "Dolares",
+    "horaCompra": "2025-12-07 21-40-58",
+    "horaAbordaje": "2025-12-07 21:43:14",
+    "servicio": "Regular",
+    "tipoBusNuevo": "NORMAL",
+    "atendido": true,
+    "terminal": "San Jose"
+  },
+  {
+    "nombre": "Dylan",
+    "id": 23,
+    "edad": 23,
+    "monedaCuenta": "Dolares",
+    "horaCompra": "2025-12-07 21-42-28",
+    "horaAbordaje": "2025-12-07 21:43:21",
+    "servicio": "VIP",
+    "tipoBusNuevo": "NORMAL",
+    "atendido": true,
+    "terminal": "San Jose"
+  },
+  {
+    "nombre": "Francisco",
+    "id": 56,
+    "edad": 22,
+    "monedaCuenta": "Colones",
+    "horaCompra": "2025-12-07 18-45-01",
+    "horaAbordaje": "2025-12-07 21:43:32",
+    "servicio": "Ejecutivo",
+    "tipoBusNuevo": "DIRECTO",
+    "atendido": true
+  }
+]

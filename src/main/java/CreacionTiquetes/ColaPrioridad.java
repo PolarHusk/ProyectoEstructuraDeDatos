@@ -1,6 +1,6 @@
 
 package CreacionTiquetes;
-
+import ModuloConfiguracion.*;
 
 public class ColaPrioridad {
     
@@ -15,10 +15,10 @@ public class ColaPrioridad {
 
     // Asigna prioridad según el tipo de bus
     // P = 1 (Preferencial), D = 2 (Directo), N = 3 (Normal)
-    private int prioridad(String tipo) {
-        if (tipo.equals("P")) return 1;
-        if (tipo.equals("D")) return 2;
-        if (tipo.equals("N")) return 3;
+    private int prioridad(TipoBus tipo) {
+        if (tipo == TipoBus.PREFERENCIAL) return 1;
+        if (tipo == TipoBus.DIRECTO) return 2;
+        if (tipo == TipoBus.NORMAL) return 3;
         return 4;
     }
 
@@ -31,7 +31,7 @@ public class ColaPrioridad {
             frente = fin = nuevo;
         } 
         // Si tiene mayor prioridad que el frente actual, se coloca al inicio
-        else if (prioridad(t.getTipoBus()) < prioridad(frente.dato.getTipoBus())) {
+        else if (prioridad(t.getTipoBusNuevo()) < prioridad(frente.getDato().getTipoBusNuevo())) {
             nuevo.siguiente = frente;
             frente = nuevo;
         } 
@@ -41,7 +41,7 @@ public class ColaPrioridad {
             Nodo anterior = null;
 
             // Recorre hasta encontrar su posición correcta
-            while (actual != null && prioridad(t.getTipoBus()) >= prioridad(actual.dato.getTipoBus())) {
+            while (actual != null && prioridad(t.getTipoBusNuevo()) >= prioridad(actual.getDato().getTipoBusNuevo())) {
                 anterior = actual;
                 actual = actual.siguiente;
             }
@@ -60,7 +60,7 @@ public class ColaPrioridad {
     // Método para eliminar (desencolar) el primer tiquete (frente)
     public Tiquete desencolar() {
         if (frente == null) return null; // Si está vacía, no hay nada que quitar
-        Tiquete t = frente.dato;
+        Tiquete t = frente.getDato();
         frente = frente.siguiente;
         if (frente == null) fin = null; // Si se eliminó el último, la cola queda vacía
         return t;
@@ -74,11 +74,11 @@ public class ColaPrioridad {
     // Devuelve la cola completa como texto
     @Override
     public String toString() {
-        if (frente == null) return "Cola vacía.";
+        if (frente == null) return "Cola vacia.";
         String texto = "";
         Nodo actual = frente;
         while (actual != null) {
-            texto += actual.dato.toString() + "\n";
+            texto += actual.getDato().toString() + "\n";
             actual = actual.siguiente;
         }
         return texto;
