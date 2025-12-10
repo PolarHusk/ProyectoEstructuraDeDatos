@@ -42,17 +42,23 @@ public class Terminal {
             return;
         }
 
+        StringBuilder sb = new StringBuilder();
+
         while (actual != null) {
             Bus bus = actual.getDato();
             int cantidad = actual.getDato().getCola().getCantidad();
-
-            JOptionPane.showMessageDialog(null, "Bus #: " + bus.getNumeroBus()
-                    + "-> " + cantidad + " personas en fila\n");
+            
+            sb.append("Bus #:" );
+            sb.append(bus.getNumeroBus());
+            sb.append(" -> ");
+            sb.append(cantidad);
+            sb.append(" personas en fila\n");
 
             actual = actual.getSiguiente();
 
         }
-
+            JOptionPane.showMessageDialog(null, sb.toString());
+        
     }
 
     public void generarBusNuevo(ListaBuses<Bus> buses, int busesNuevos) {
