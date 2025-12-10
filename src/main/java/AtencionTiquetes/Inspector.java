@@ -54,7 +54,7 @@ public class Inspector {
            // CAMBIAR TIPODE CAMBIO A DOUBLE O INT precioTiquete = precioTiquete * tipoCambio;
         }
 
-        int opcion = JOptionPane.showConfirmDialog(null, "Tiquete #: " + t.getId() + "paga: " + precioTiquete,
+        int opcion = JOptionPane.showConfirmDialog(null, "Tiquete #: " + t.getId() + "\npaga: " + precioTiquete,
                 "Pago requerido", JOptionPane.YES_NO_OPTION);
 
         if (opcion == JOptionPane.NO_OPTION) {

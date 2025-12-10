@@ -11,6 +11,7 @@ package ModuloConfiguracion;
 public class ListaBuses<T extends Comparable<T>> {
 
     private NodoBus<T> cabeza;
+    private NodoBus<T> fin;
     private int cantidad = 0;
 
     public ListaBuses() {
@@ -26,10 +27,17 @@ public class ListaBuses<T extends Comparable<T>> {
     }
 
     public void addFirst(T newDato) {
+
         NodoBus<T> nuevoNodo = new NodoBus(newDato);
-        nuevoNodo.setSiguiente(cabeza);
-        this.cabeza = nuevoNodo;
+
+        if (cabeza == null) {
+            cabeza = fin = nuevoNodo;
+        } else {
+            nuevoNodo.setSiguiente(cabeza);
+            this.cabeza = nuevoNodo;
+        }
         cantidad++;
+
     }
 
     public void addOrderAsc(T newDato) {
@@ -193,11 +201,11 @@ public class ListaBuses<T extends Comparable<T>> {
         return seleccionado;
 
     }
-    
-    public Bus buscarBusPorNumero(String id){
+
+    public Bus buscarBusPorNumero(String id) {
         NodoBus<T> actual = cabeza;
-                
-        while (actual != null) {            
+
+        while (actual != null) {
             Bus bus = (Bus) actual.getDato();
             if (bus.getNumeroBus().equals(id)) {
                 return bus;

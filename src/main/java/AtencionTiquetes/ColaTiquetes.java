@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package AtencionTiquetes;
+
 import CreacionTiquetes.*;
 
 public class ColaTiquetes {
 
-     private Nodo frente;
+    private Nodo frente;
     private Nodo fin;
     private int cantidad;
 
@@ -34,10 +35,14 @@ public class ColaTiquetes {
     }
 
     public Tiquete desencolar() {
-        if (estaVacia()) return null;
+        if (estaVacia()) {
+            return null;
+        }
         Tiquete t = frente.getDato();
         frente = frente.getSiguiente();
-        if (frente == null) fin = null; // cola quedó vacía
+        if (frente == null) {
+            fin = null; // cola quedó vacía
+        }
         cantidad--;
         return t;
     }

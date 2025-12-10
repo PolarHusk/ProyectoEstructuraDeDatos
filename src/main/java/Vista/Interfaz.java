@@ -9,6 +9,9 @@ import ConsultaBCCR.*;
 import CreacionTiquetes.*;
 import LlenadoColas.*;
 import ModuloConfiguracion.*;
+import com.google.gson.Gson;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -38,24 +41,17 @@ public class Interfaz {
 
         Terminal terminal = TerminalGlobal.getTerminal();
 
-        System.out.println(" -----COLA DE PRIORIDAD DE TIQUETES---- ");
-        System.out.println(cola.toString());
-
-        while (!cola.estaVacia()) {            
-            Tiquete rechazado = cola.desencolar();
-            LlenadoColas1.enviarTiquetesaBus(rechazado, terminal.getBuses());
-        }
-        
-        
         do {
 
             opcion = Integer.parseInt(JOptionPane.showInputDialog(
                     "SISTEMA DE ATENCION DE TIQUETES BUSNOVATECH\n"
                     + "1. Crear Tiquete\n"
                     + "2. Abordar (Atender siguiente tiquete)\n"
-                    + "3. Mostrar tiquetes pendientes\n"
+                    + "3. Mostrar tiquetes en fila de Bus\n"
                     + "4. Agregar mas buses\n"
-                    + "5. Salir\n"));
+                    + "5. Mostrar tiquetes en la cola de prioridad\n"
+                    + "6. Mostrar tiquetes atendidos\n"
+                    + "7. Salir"));
 
             switch (opcion) {
                 case 1:
@@ -73,6 +69,23 @@ public class Interfaz {
                     terminal.generarBusNuevo(buses, busesNuevo);
                     break;
                 case 5:
+                    System.out.println(" -----COLA DE PRIORIDAD DE TIQUETES---- ");
+                    System.out.println(cola.toString());
+
+                    int opcionConfirmar = JOptionPane.showConfirmDialog(null, "Desea enviar los tiquetes denegados a la fila de buses?", "Cola de Prioridad", JOptionPane.YES_NO_OPTION);
+                    if (opcionConfirmar == JOptionPane.YES_OPTION) {
+                        while (!cola.estaVacia()) {
+                            Tiquete rechazado = cola.desencolar();
+                            LlenadoColas1.enviarTiquetesaBus(rechazado, terminal.getBuses());
+                            break;
+                        }
+                    } else if (opcionConfirmar == JOptionPane.NO_OPTION) {
+                        break;
+                    }
+                case 6:
+                    mostrarTiquetesAtendidos();
+                    break;
+                case 7:
                     SerializacionConfig config;
                     config = new SerializacionConfig(TerminalGlobal.getTerminal());
                     config.GuardarConfig(TerminalGlobal.getTerminal());
@@ -84,7 +97,7 @@ public class Interfaz {
                     throw new AssertionError();
             }
 
-        } while (opcion != 5);
+        } while (opcion != 7);
 
     }
 
@@ -181,6 +194,8 @@ public class Interfaz {
         }
 
         LlenadoColas1.guardarColasPendientes(TerminalGlobal.getTerminal().getBuses(), "colas.json");
+        SerializacionColaPrioridad serializacionColaPrioridad = new SerializacionColaPrioridad();
+        serializacionColaPrioridad.serializarColaPrioridad(cola, "tiquetes.json");
 
     }
 
@@ -202,6 +217,39 @@ public class Interfaz {
         }
         JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrectos.");
         return null;
+    }
+
+    private static void mostrarTiquetesAtendidos() {
+        Tiquete[] lista = cargarAtendidos();
+
+        if (lista.length == 0) {
+            System.out.println("No hay tiquetes atendidos todavía.");
+            return;
+        }
+
+        System.out.println("Tiquetes atendidos");
+        for (Tiquete t : lista) {
+            System.out.println(t);
+        }
+    }
+
+    private static Tiquete[] cargarAtendidos() {
+        try {
+            Gson gson = new Gson();
+
+            try (FileReader reader = new FileReader("atendidos.json")) {
+                Tiquete[] atendidos = gson.fromJson(reader, Tiquete[].class);
+
+                if (atendidos == null) {
+                    return new Tiquete[0]; // archivo vacío
+                }
+                return atendidos;
+            }
+
+        } catch (IOException e) {
+            System.out.println("No se pudo leer atendidos.json: " + e.getMessage());
+            return new Tiquete[0];
+        }
     }
 
 }
