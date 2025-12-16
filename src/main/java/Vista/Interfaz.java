@@ -36,6 +36,7 @@ public class Interfaz {
 
         if (logueado == null) {
             System.out.println("No se pudo iniciar sesion. Cerrando programa.");
+            return;
         }
 
         ColaPrioridad cola = cargarConfiguracion();

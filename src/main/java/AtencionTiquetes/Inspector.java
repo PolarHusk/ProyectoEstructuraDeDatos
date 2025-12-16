@@ -9,10 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import CreacionTiquetes.*;
 import javax.swing.JOptionPane;
-import ModuloConfiguracion.*;
 import ConsultaBCCR.*;
-import static ConsultaBCCR.MainBCCR.tipoCambio;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Inspector {
 
@@ -45,9 +44,10 @@ public class Inspector {
         if (t.getMonedaCuenta().equals("Colones")) {
             ServicioBCCR servicio = new ServicioBCCR();
             IndicadorEconomico indicador = null;
+            String fechaHoy = obtenerFechaActual();
             try {
                 indicador = servicio.obtenerIndicador(
-                        "318", "25/11/2025", "25/11/2025",
+                        "318", fechaHoy, fechaHoy,
                         "Sebastian Sandi Vega", "N", "sebasandi940@gmail.com", "SSS082DES5"
                 );
             } catch (Exception ex) {
@@ -103,6 +103,16 @@ public class Inspector {
         } catch (IOException e) {
             System.out.println("Error al guardar atendidos.json: " + e.getMessage());
         }
+    }
+
+    public static String obtenerFechaActual() {
+
+        LocalDate fechaActual = LocalDate.now();
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return fechaActual.format(formato);
+
     }
 
 }

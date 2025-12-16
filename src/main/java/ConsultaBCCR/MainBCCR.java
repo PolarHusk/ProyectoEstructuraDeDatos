@@ -1,27 +1,34 @@
 package ConsultaBCCR;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author keagui1
  */
 public class MainBCCR {
 
-  public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         ServicioBCCR servicio = new ServicioBCCR();
+        String fechaHoy = obtenerFechaActual();
         IndicadorEconomico indicador = servicio.obtenerIndicador(
-                "318", "25/11/2025", "25/11/2025",
+                "318", fechaHoy, fechaHoy,
                 "Sebastian Sandi Vega", "N", "sebasandi940@gmail.com", "SSS082DES5"
         );
         System.out.println("\n\n\n\n/////////////////////////////////////");
         BigDecimal tipoCambio = tipoCambio(indicador);
         System.out.println("/////////////////////////////////////");
-        System.out.println("Tipo de cambio:"+ tipoCambio.toString());
+        System.out.println("Tipo de cambio:" + tipoCambio.toString());
         System.out.println("/////////////////////////////////////\n");
-       
+        
+        
+        
     }
 
-     public static BigDecimal tipoCambio(IndicadorEconomico indicadorEconomico) {
-        BigDecimal resultado=null;
+    public static BigDecimal tipoCambio(IndicadorEconomico indicadorEconomico) {
+        BigDecimal resultado = null;
         // Verificando que no sea nulo
         if (indicadorEconomico != null && indicadorEconomico.getDiffgram() != null) {
             IndicadorEconomico.Diffgram diffgram = indicadorEconomico.getDiffgram();
@@ -51,7 +58,13 @@ public class MainBCCR {
             }
         } else {
             System.out.println("El objeto indicadorEconomico está vacío.");
-        }        
-       return resultado;
+        }
+        return resultado;
+    }
+
+    public static String obtenerFechaActual() {
+        LocalDate fechaActual = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return fechaActual.format(formato);
     }
 }
