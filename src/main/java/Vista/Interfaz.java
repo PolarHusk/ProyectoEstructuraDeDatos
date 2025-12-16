@@ -6,7 +6,10 @@ package Vista;
 
 import AtencionTiquetes.*;
 import ConsultaBCCR.*;
-import CreacionTiquetes.*;
+import Grafo.*;
+import CreacionTiquetes.ColaPrioridad;
+import CreacionTiquetes.SerializacionColaPrioridad;
+import CreacionTiquetes.Tiquete;
 import LlenadoColas.*;
 import ModuloConfiguracion.*;
 import com.google.gson.Gson;
@@ -25,7 +28,7 @@ public class Interfaz {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Usuario[] usuarios = SerializacionUsuarios.cargarUsuarios();
 
@@ -33,6 +36,7 @@ public class Interfaz {
 
         if (logueado == null) {
             System.out.println("No se pudo iniciar sesion. Cerrando programa.");
+            return;
         }
 
         ColaPrioridad cola = cargarConfiguracion();
@@ -40,6 +44,8 @@ public class Interfaz {
         int opcion;
 
         Terminal terminal = TerminalGlobal.getTerminal();
+
+        GrafoPonderado<Destino> rutas = Grafo.Main.crearGrafo();
 
         do {
 
@@ -51,7 +57,8 @@ public class Interfaz {
                     + "4. Agregar mas buses\n"
                     + "5. Mostrar tiquetes en la cola de prioridad\n"
                     + "6. Mostrar tiquetes atendidos\n"
-                    + "7. Salir"));
+                    + "7. Mostrar Rutas\n"
+                    + "8. Salir"));
 
             switch (opcion) {
                 case 1:
@@ -86,6 +93,9 @@ public class Interfaz {
                     mostrarTiquetesAtendidos();
                     break;
                 case 7:
+                    mostrarGrafoPonderado(rutas);
+                    break;
+                case 8:
                     SerializacionConfig config;
                     config = new SerializacionConfig(TerminalGlobal.getTerminal());
                     config.GuardarConfig(TerminalGlobal.getTerminal());
@@ -97,7 +107,7 @@ public class Interfaz {
                     throw new AssertionError();
             }
 
-        } while (opcion != 7);
+        } while (opcion != 8);
 
     }
 
@@ -250,6 +260,59 @@ public class Interfaz {
             System.out.println("No se pudo leer atendidos.json: " + e.getMessage());
             return new Tiquete[0];
         }
+    }
+
+    private static void mostrarGrafoPonderado(GrafoPonderado<Destino> rutas) {
+
+        rutas.imprimir();
+        Lista<Destino> terminales = rutas.obtenerVertices();
+
+        StringBuilder sb = new StringBuilder("Seleccione el destino:\n");
+        Nodo<Destino> escogerTerminal = terminales.getCabeza();
+
+        while (escogerTerminal != null) {
+            Destino d = escogerTerminal.getDato();
+            sb.append(d.getId()).append(" - ").append(d.getNombre()).append("\n");
+            escogerTerminal = escogerTerminal.getSiguiente();
+        }
+
+        int idOrigen = Integer.parseInt(
+                JOptionPane.showInputDialog("Ingrese ID del origen:\n" + sb)
+        );
+
+        int idDestino = Integer.parseInt(
+                JOptionPane.showInputDialog("Ingrese ID del destino:\n" + sb)
+        );
+
+        Destino origen = null;
+        Destino destino = null;
+
+        Nodo<Destino> escogerDestino = terminales.getCabeza();
+        while (escogerDestino != null) {
+            Destino d = escogerDestino.getDato();
+            if (d.getId() == idOrigen) {
+                origen = d;
+            }
+            if (d.getId() == idDestino) {
+                destino = d;
+            }
+            escogerDestino = escogerDestino.getSiguiente();
+        }
+
+        if (origen == null || destino == null) {
+            JOptionPane.showMessageDialog(null, "Destino inválido");
+            return;
+        }
+
+        String resultado = rutas.dijkstra(origen, destino);
+
+        JOptionPane.showMessageDialog(
+                null,
+                resultado,
+                "Ruta más corta",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
     }
 
 }
