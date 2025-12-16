@@ -31,14 +31,6 @@ public class Inspector {
 
         Double precioTiquete = 0.0;
 
-//        ServicioBCCR servicio = new ServicioBCCR();
-
-//        IndicadorEconomico indicador = servicio.obtenerIndicador(
-//                "318", "25/11/2025", "25/11/2025",
-//                "Sebastian Sandi Vega", "N", "sebasandi940@gmail.com", "SSS082DES5"
-//        );
-//        BigDecimal tipoCambio = tipoCambio(indicador);
-
         if (t.getServicio().equals("VIP")) {
             precioTiquete = 100.00 + 20.00;
         } else if (t.getServicio().equals("Regular")) {
@@ -51,7 +43,18 @@ public class Inspector {
         }
 
         if (t.getMonedaCuenta().equals("Colones")) {
-           // CAMBIAR TIPODE CAMBIO A DOUBLE O INT precioTiquete = precioTiquete * tipoCambio;
+            ServicioBCCR servicio = new ServicioBCCR();
+            IndicadorEconomico indicador = null;
+            try {
+                indicador = servicio.obtenerIndicador(
+                        "318", "25/11/2025", "25/11/2025",
+                        "Sebastian Sandi Vega", "N", "sebasandi940@gmail.com", "SSS082DES5"
+                );
+            } catch (Exception ex) {
+            }
+            BigDecimal tipoCambio = ConsultaBCCR.MainBCCR.tipoCambio(indicador);
+            double tipoCambioDecimal = tipoCambio.doubleValue();
+            precioTiquete = precioTiquete * tipoCambioDecimal;
         }
 
         int opcion = JOptionPane.showConfirmDialog(null, "Tiquete #: " + t.getId() + "\npaga: " + precioTiquete,
